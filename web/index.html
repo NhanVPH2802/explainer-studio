@@ -1,0 +1,471 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Explainer Studio</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Arial,Helvetica,sans-serif;background:#0f172a;color:#e2e8f0}header{padding:20px 32px;background:#111827;border-bottom:1px solid #334155;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.wrap{max-width:1180px;margin:26px auto;padding:0 20px}.nav,.tabs,.actions{display:flex;gap:8px;flex-wrap:wrap}.nav button,.tabs button{background:#1e293b;border:1px solid #334155}.nav button.active,.tabs button.active{background:#2563eb;border-color:#2563eb}.page,.tabpage{display:none}.page.active,.tabpage.active{display:block}.card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:20px;margin-bottom:18px}.row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:820px){.grid2{grid-template-columns:1fr}}.status{padding:6px 12px;border-radius:20px;font-size:14px}.online,.completed{background:#166534}.offline,.failed{background:#991b1b}.loading,.queued{background:#475569}.rendering{background:#1d4ed8}button,.btn{background:#2563eb;color:white;border:0;padding:11px 16px;border-radius:8px;cursor:pointer;text-decoration:none;display:inline-block}button:hover,.btn:hover{background:#1d4ed8}button:disabled{opacity:.5;cursor:not-allowed}.meta,.muted{color:#94a3b8;font-size:14px;line-height:1.8}.progress{height:10px;background:#334155;border-radius:99px;overflow:hidden;margin:10px 0}.bar{height:100%;background:#3b82f6}.jobs{margin-top:28px}.job{border-top:1px solid #334155;padding:14px 0}.error{color:#fca5a5}.ok{color:#86efac}.warn{color:#fde68a}.titleline,.provider-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.smallbtn{padding:8px 12px;font-size:13px}.cache-note{font-size:12px;color:#64748b}label{display:block;font-size:13px;color:#cbd5e1;margin:10px 0 6px}input,select,textarea{width:100%;background:#0f172a;color:#e2e8f0;border:1px solid #475569;border-radius:8px;padding:10px 12px;font-size:14px}.provider-card{border:1px solid #334155;border-radius:12px;padding:16px;margin-top:12px;background:#111827}.badge{padding:4px 9px;border-radius:999px;background:#334155;color:#cbd5e1;font-size:12px}.badge.good{background:#166534}.scene{border-top:1px solid #334155;padding:14px 0}.notice{padding:12px 14px;border:1px solid #334155;border-radius:10px;background:#111827;color:#cbd5e1;font-size:14px;line-height:1.6}.model-list{max-height:180px;overflow:auto;background:#0f172a;border:1px solid #334155;border-radius:8px;padding:10px;margin-top:10px;font-size:13px;line-height:1.7}.provider-result{margin-top:10px;min-height:22px}.hidden{display:none}.scene-edit{display:grid;gap:8px;margin-top:10px}.scene-edit textarea{min-height:78px;resize:vertical}.script-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.danger{background:#b91c1c}.danger:hover{background:#991b1b}.secondary{background:#475569}.secondary:hover{background:#334155}.ready{background:#166534}.draft{background:#92400e}.voice-row{padding:12px 0;border-top:1px solid #334155}.voice-row textarea{width:100%;resize:vertical;margin-top:8px}
+.template-demo{height:320px;border:1px solid #334155;border-radius:16px;padding:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;margin-bottom:14px}.tpl-badge{border:1px solid #38bdf8;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:800;letter-spacing:1px}.tpl-icon{font-size:24px;font-weight:900}.tpl-title{font-size:30px;font-weight:900;line-height:1.1}.tpl-text{font-size:16px;line-height:1.4}.template-demo.classic{background:linear-gradient(#020617,#0f172a,#000)}.template-demo.cards{background:linear-gradient(135deg,#020617,#172554,#020617)}.template-demo.cards .tpl-title{border:1px solid #3b82f6;border-radius:14px;padding:16px;width:90%}.template-demo.minimal{background:#020617}.template-demo.minimal .tpl-title{font-size:38px}.template-demo.cyber{background:radial-gradient(circle at top,#164e63,#000 65%);color:#67e8f9}.template-demo.terminal{background:#000;color:#86efac;font-family:monospace;align-items:flex-start;text-align:left}#pageRender>.titleline{display:none!important}#pageRender>#comps{display:none!important}button,input,select,textarea{font-family:inherit}
+/* Alpha 15.0.1 UI Compact */
+#pageTemplates,
+#pagePronunciation {
+  width: min(1120px, calc(100% - 32px));
+  margin: 24px auto;
+}
+
+#pageTemplates .card,
+#pagePronunciation .card {
+  padding: 18px 20px;
+}
+
+#pageTemplates .grid2,
+#pagePronunciation .grid2 {
+  gap: 14px;
+}
+
+#pageTemplates input,
+#pageTemplates select,
+#pagePronunciation input,
+#pagePronunciation select {
+  min-height: 38px;
+}
+
+#pageTemplates .job,
+#pagePronunciation .job {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.base-layout-help {
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #94a3b8;
+}
+
+@media (max-width: 900px) {
+  #pageTemplates,
+  #pagePronunciation {
+    width: calc(100% - 20px);
+    margin: 14px auto;
+  }
+}
+
+
+/* Alpha 15.0.3c - make custom template cards visually identical in size to built-in cards */
+#pageTemplates [data-custom-template-card="1"] {
+  display: flex;
+  flex-direction: column;
+  min-height: 316px;
+}
+
+#pageTemplates [data-custom-template-card="1"] > div {
+  height: 210px !important;
+  min-height: 210px !important;
+  max-height: 210px !important;
+  flex: 0 0 210px !important;
+  margin-top: 12px;
+}
+
+#pageTemplates [data-custom-template-card="1"] > button {
+  margin-top: 10px !important;
+  align-self: flex-start;
+}
+
+#pageTemplates [data-custom-template-card="1"] h3 {
+  margin-bottom: 0;
+}
+
+
+/* Alpha 15.0.3d - force custom preview to same square ratio as built-in previews */
+#pageTemplates [data-custom-template-card="1"] {
+  min-height: auto !important;
+}
+#pageTemplates [data-custom-template-card="1"] > div {
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  flex: none !important;
+  margin-top: 12px !important;
+}
+#pageTemplates [data-custom-template-card="1"] > button {
+  margin-top: 10px !important;
+}
+
+
+/* Alpha 15.0.3e - custom cards follow measured built-in card dimensions */
+#pageTemplates [data-custom-template-card="1"]{
+  display:flex;
+  flex-direction:column;
+}
+#pageTemplates [data-custom-template-card="1"] [data-custom-preview="1"]{
+  aspect-ratio:auto !important;
+}
+
+</style></head><body>
+<header><h2 style="margin:0">Explainer Studio</h2><div class="nav"><button id="navRender" class="active" onclick="showPage('render')">Render</button><button id="navCreate" onclick="showPage('create')">AI Content</button><button id="navProviders" onclick="showPage('providers')">Providers</button><button id="navPronunciation" onclick="showPage('pronunciation')">Từ điển cách đọc</button><button id="navTemplates" onclick="showPage('templates')">Templates</button><button id="navChannel" onclick="showPage('channel')">Kênh & Intro/Outro</button></div></header>
+<div class="wrap">
+<section id="pageRender" class="page active"><div class="card"><div class="titleline"><h3>System Status</h3><span id="backend" class="status loading">Checking...</span></div><div class="muted">Remotion render queue: tối đa 1 job chạy cùng lúc</div></div><div class="titleline"><div><div id="compMsg" class="muted">Loading compositions...</div><div id="compCache" class="cache-note"></div></div><button class="smallbtn" onclick="refreshComps()">Refresh compositions</button></div><div id="comps"></div><div class="card jobs"><div class="titleline"><h3>Render Jobs</h3><button onclick="loadJobs()">Refresh</button></div><div id="jobs" class="muted">Chưa có job.</div></div></section>
+
+<section id="pageCreate" class="page"><div class="card"><h3>Tạo nội dung video</h3><div class="notice">AI chỉ sinh nội dung. Layout, animation, màu sắc, SVG icon và Remotion template do Explainer Studio kiểm soát.</div>
+<div class="grid2"><div><label>Chế độ AI</label><select id="aiMode" onchange="onAiModeChange()"></select></div><div><label>Model AI</label><select id="aiModel"></select></div></div>
+<label>Chủ đề</label><input id="topic" placeholder="Ví dụ: Ubuntu Server là gì?">
+<div class="grid2"><div><label>Voice Provider</label><select id="voiceProvider" onchange="loadVoiceOptions()"></select></div><div><label>Giọng đọc</label><select id="voiceModel"></select></div></div>
+<div class="grid2"><div><label>Thời lượng mục tiêu</label><select id="duration"><option value="60" selected>60 giây</option><option value="90">90 giây</option><option value="120">120 giây</option><option value="auto">Tự đề xuất</option></select></div><div><label>Template video</label><select id="videoTemplate">
+<option value="classic-docker">Classic Docker</option>
+<option value="tech-cards">Tech Cards</option>
+<option value="minimal-clean">Minimal Clean</option>
+<option value="cyber-tech">Cyber Tech</option>
+<option value="terminal-cli">Terminal / CLI</option>
+</select></div><div></div></div>
+<div class="actions"><button id="generateBtn" onclick="generateScript()">Tạo kịch bản</button></div><div id="generateStatus" class="muted" style="margin-top:10px"></div></div>
+<div id="scriptResult" class="card" style="display:none"><div class="titleline"><h3 id="scriptTitle">Kịch bản</h3><span id="scriptMeta" class="badge draft">DRAFT</span></div><div id="sceneList"></div><div class="script-actions"><button onclick="saveScript(false)">Lưu bản nháp</button><button onclick="saveScript(true)">Lưu / Chốt kịch bản</button><button class="secondary" onclick="regenerateScript()">Tạo kịch bản khác</button><button id="scriptRenderBtn" onclick="renderFinalScript()" disabled>Render MP4</button></div><div id="scriptActionStatus" class="muted" style="margin-top:10px"></div></div></section>
+
+<section id="pageProviders" class="page"><div class="card"><h3>Provider Manager</h3><div class="notice">Nhập API → <b>Lưu</b> → <b>Kiểm tra kết nối</b>. Hệ thống tự lấy danh sách Model/Voice nếu provider hỗ trợ. API Key chỉ lưu ở backend.</div><div class="tabs" style="margin-top:14px"><button id="tabAI" class="active" onclick="showProviderTab('ai')">AI Providers</button><button id="tabVoice" onclick="showProviderTab('voice')">Voice Providers</button></div></div><div id="providerTabAI" class="tabpage active"><div id="aiProviderList"></div></div><div id="providerTabVoice" class="tabpage"><div id="voiceProviderList"></div></div></section>
+
+<section id="pageChannel" class="page"><div class="card"><h3>Cài đặt kênh & Intro/Outro</h3><div class="notice">Thông tin lưu cố định ở backend và tự dùng cho video mới.</div><div class="grid2"><div><label>Tên kênh / trang</label><input id="chName"></div><div><label>Website</label><input id="chWebsite"></div></div><div class="grid2"><div><label>YouTube</label><input id="chYoutube"></div><div><label>Facebook</label><input id="chFacebook"></div></div><div class="grid2"><div><label>TikTok</label><input id="chTiktok"></div><div><label>CTA mặc định</label><input id="chCta"></div></div><div class="card" style="margin-top:16px"><label><input id="chIntroEnabled" type="checkbox" style="width:auto"> Bật Intro</label><div class="grid2"><div><label>Tiêu đề Intro</label><input id="chIntroTitle"></div><div><label>Phụ đề Intro</label><input id="chIntroSubtitle"></div></div><label>Lời thoại Intro</label><textarea id="chIntroVoice"></textarea></div><div class="card"><label><input id="chOutroEnabled" type="checkbox" style="width:auto"> Bật Outro</label><label>Tiêu đề Outro</label><input id="chOutroTitle"><label>Lời thoại Outro</label><textarea id="chOutroVoice"></textarea></div><button onclick="saveChannelSettings()">Lưu thông tin kênh</button><div id="channelStatus" class="muted" style="margin-top:10px"></div></div></section>
+</div>
+<section id="pagePronunciation" class="page"><div class="card"><h3>Từ điển cách đọc</h3><div class="notice">Chỉ đổi cách đọc khi tạo TTS; chữ trên video giữ nguyên.</div><div class="grid2"><div><label>Từ gốc</label><input id="pronTerm" placeholder="NAS"></div><div><label>Cách đọc</label><input id="pronValue" placeholder="nat"></div></div><div class="actions" style="margin-top:12px"><button onclick="savePron()">Lưu / Cập nhật</button><button class="secondary" onclick="clearPron()">Làm mới</button></div></div><div class="card"><h3>Danh sách</h3><div id="pronList"></div></div></section><section id="pageTemplates" class="page"><div id="customTemplateBuilder" class="card"><div class="titleline"><div><h3>Custom Template Builder</h3><div class="muted">Tạo template riêng từ layout hiện có. Font và background upload sẽ được lưu trên server.</div></div><button onclick="newCustomTemplate()">+ Tạo mới</button></div><div class="grid2"><div><label>Tên template</label><input id="ctName" placeholder="VD: NhanVPH Blue"></div><div><label>Bố cục gốc (Base Layout)</label><select id="ctBase"><option value="classic-docker">Classic Docker</option><option value="tech-cards">Tech Cards</option><option value="minimal-clean">Minimal Clean</option><option value="cyber-tech">Cyber Tech</option><option value="terminal-cli">Terminal / CLI</option></select></div><div><label>Font chữ</label><select id="ctFont"></select></div><div><label>Upload font</label><input id="ctFontFile" type="file" accept=".ttf,.otf,.woff,.woff2"><button type="button" onclick="uploadCustomFont()">Upload Font</button></div><div><label>Background</label><select id="ctBg"></select></div><div><label>Upload background</label><input id="ctBgFile" type="file" accept=".jpg,.jpeg,.png,.webp"><button type="button" onclick="uploadCustomBg()">Upload Background</button></div><div><label>Hiển thị background</label><select id="ctBgFit"><option value="cover">Cover</option><option value="contain">Contain</option><option value="100% 100%">Stretch</option></select></div><div><label>Màu accent</label><input id="ctAccent" type="color" value="#38bdf8"></div></div><div class="actions" style="margin-top:14px"><button onclick="saveCustomTemplate()">Lưu Template</button><button class="secondary" onclick="newCustomTemplate()">Làm mới</button></div><div id="ctStatus" class="muted" style="margin-top:10px"></div><div id="ctList" style="margin-top:18px"></div></div>
+
+<div class="card"><h3>Template Library</h3><div class="muted">Trang này chỉ để xem mẫu. Template dùng để render được chọn trong AI Content.</div></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px">
+<div class="card"><h3>Classic Docker</h3><div class="template-demo classic"><div class="tpl-badge">MÓC CÂU</div><div class="tpl-icon">ROCKET</div><div class="tpl-title">NAS là gì?</div><div class="tpl-text">Card lớn, rõ và cân đối.</div></div><button onclick="previewTemplate('classic')">Xem mẫu</button></div>
+<div class="card"><h3>Tech Cards</h3><div class="template-demo cards"><div class="tpl-badge">TECH CARDS</div><div class="tpl-icon">TECH</div><div class="tpl-title">NAS là gì?</div><div class="tpl-text">Nội dung theo card hiện đại.</div></div><button onclick="previewTemplate('cards')">Xem mẫu</button></div>
+<div class="card"><h3>Minimal Clean</h3><div class="template-demo minimal"><div class="tpl-badge">MINIMAL</div><div class="tpl-title">NAS là gì?</div><div class="tpl-text">Chữ lớn, ít chi tiết.</div></div><button onclick="previewTemplate('minimal')">Xem mẫu</button></div>
+<div class="card"><h3>Cyber Tech</h3><div class="template-demo cyber"><div class="tpl-badge">CYBER</div><div class="tpl-icon">CYBER</div><div class="tpl-title">NAS là gì?</div><div class="tpl-text">Server - Network - Security</div></div><button onclick="previewTemplate('cyber')">Xem mẫu</button></div>
+<div class="card"><h3>Terminal / CLI</h3><div class="template-demo terminal"><div class="tpl-badge">$ explain</div><div class="tpl-title">&gt; NAS là gì?</div><div class="tpl-text">root@tech:~# storage --explain</div></div><button onclick="previewTemplate('terminal')">Xem mẫu</button></div>
+</div>
+</section>
+<div id="tplModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.86);z-index:9999;align-items:center;justify-content:center">
+<div class="card" style="width:min(520px,94vw)">
+<div class="titleline"><h3>Xem mẫu</h3><button onclick="closeTpl()">Đóng</button></div>
+<div id="tplStage" class="template-demo classic" style="height:620px"></div>
+</div></div><script>
+const API=`http://${location.hostname}:8081`;const TEMPLATE_API=`http://${location.hostname}:8082`;let customTemplates=[],customAssets={fonts:[],backgrounds:[]},editingTemplateId="";
+const fileToDataUrl=f=>new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result);r.onerror=no;r.readAsDataURL(f)});
+async function loadCustomTemplateBuilder(){try{const[tr,ar]=await Promise.all([fetch(TEMPLATE_API+"/api/templates"),fetch(TEMPLATE_API+"/api/assets")]);const tj=await tr.json(),aj=await ar.json();customTemplates=tj.templates||[];customAssets=aj||{fonts:[],backgrounds:[]};ctFont.innerHTML='<option value="">Font mặc định</option><option value="DejaVu Sans">DejaVu Sans</option><option value="Arial">Arial</option>'+customAssets.fonts.map(x=>`<option value="${esc(x.name)}" data-url="${esc(x.url)}">${esc(x.name)}</option>`).join('');ctBg.innerHTML='<option value="">Nền theo layout gốc</option>'+customAssets.backgrounds.map(x=>`<option value="${esc(x.url)}">${esc(x.name)}</option>`).join('');renderCustomTemplates();renderCustomTemplateLibrary();refreshCustomTemplateSelector()}catch(e){ctStatus.innerHTML='<span class="error">Không kết nối được Template Assets API: '+esc(e.message)+'</span>'}}
+
+function ensureCustomTemplateLibrary(){
+  let lib=document.getElementById('customTemplateLibrary');
+  if(lib)return lib;
+
+  const page=document.getElementById('pageTemplates');
+  if(!page)return null;
+
+  const cards=[...page.querySelectorAll('.card')];
+  const libraryHeader=cards.find(c=>c.textContent.includes('Template Library'));
+  if(!libraryHeader)return null;
+
+  lib=document.createElement('div');
+  lib.id='customTemplateLibrary';
+  lib.className='grid3';
+  lib.style.marginTop='16px';
+
+  libraryHeader.insertAdjacentElement('afterend',lib);
+  return lib;
+}
+
+
+function syncCustomTemplateCardMetrics(){
+  const page=document.getElementById('pageTemplates');
+  if(!page)return;
+
+  const builtInNames=['Classic Docker','Tech Cards','Minimal Clean','Cyber Tech','Terminal / CLI'];
+  const builtInCards=[...page.querySelectorAll('.card')].filter(c=>{
+    const h=c.querySelector('h3');
+    return h && builtInNames.includes((h.textContent||'').trim());
+  });
+  if(!builtInCards.length)return;
+
+  const sampleCard=builtInCards[0];
+  const sampleButton=sampleCard.querySelector('button');
+
+  let samplePreview=null;
+  for(const child of sampleCard.children){
+    if(child===sampleButton)continue;
+    if(child.tagName==='H3')continue;
+    const r=child.getBoundingClientRect();
+    if(r.width>120 && r.height>120){
+      samplePreview=child;
+      break;
+    }
+  }
+  if(!samplePreview)return;
+
+  const previewRect=samplePreview.getBoundingClientRect();
+  const cardRect=sampleCard.getBoundingClientRect();
+
+  page.querySelectorAll("[data-custom-template-card='1']").forEach(card=>{
+    const preview=card.querySelector("[data-custom-preview='1']");
+    if(preview){
+      preview.style.setProperty('width', previewRect.width+'px', 'important');
+      preview.style.setProperty('height', previewRect.height+'px', 'important');
+      preview.style.setProperty('min-height', previewRect.height+'px', 'important');
+      preview.style.setProperty('max-height', previewRect.height+'px', 'important');
+      preview.style.setProperty('aspect-ratio', 'auto', 'important');
+      preview.style.setProperty('flex', '0 0 '+previewRect.height+'px', 'important');
+    }
+    card.style.setProperty('min-height', cardRect.height+'px', 'important');
+  });
+}
+
+function renderCustomTemplateLibrary(){
+  const lib=ensureCustomTemplateLibrary();
+  if(!lib)return;
+
+  /* Put custom cards in the SAME grid as system template cards. */
+  const page=document.getElementById('pageTemplates');
+  const systemCards=[...page.querySelectorAll('.card')].filter(c=>{
+    const h=c.querySelector('h3');
+    return h && ['Classic Docker','Tech Cards','Minimal Clean','Cyber Tech','Terminal / CLI'].includes(h.textContent.trim());
+  });
+  if(!systemCards.length)return;
+
+  const grid=systemCards[0].parentElement;
+  if(!grid)return;
+
+  /* Remove the old full-width custom preview area created by 15.0.3a. */
+  lib.remove();
+
+  grid.querySelectorAll("[data-custom-template-card='1']").forEach(x=>x.remove());
+
+  customTemplates.forEach(t=>{
+    const card=document.createElement('div');
+    card.className='card';
+    card.dataset.customTemplateCard='1';
+
+    const title=document.createElement('h3');
+    title.textContent=t.name||t.id;
+    card.appendChild(title);
+
+    const demo=document.createElement('div');
+    demo.dataset.customPreview='1';
+    demo.style.width='100%';demo.style.aspectRatio='1 / 1';demo.style.height='auto';demo.style.minHeight='0';
+    demo.style.border='1px solid #334155';
+    demo.style.borderRadius='14px';
+    demo.style.overflow='hidden';
+    demo.style.position='relative';
+    demo.style.background='#020617';
+
+    if(t.backgroundUrl){
+      demo.style.backgroundImage="linear-gradient(rgba(2,6,23,.45),rgba(2,6,23,.55)),url('"+t.backgroundUrl+"')";
+      demo.style.backgroundSize=t.backgroundFit||'cover';
+      demo.style.backgroundPosition='center';
+    }
+
+    const inner=document.createElement('div');
+    inner.style.position='absolute';
+    inner.style.inset='0';
+    inner.style.display='flex';
+    inner.style.flexDirection='column';
+    inner.style.alignItems='center';
+    inner.style.justifyContent='center';
+    inner.style.padding='18px';
+    inner.style.textAlign='center';
+    inner.style.fontFamily=t.fontFamily||'inherit';
+
+    const badge=document.createElement('div');
+    badge.textContent='CUSTOM';
+    badge.style.border='1px solid '+(t.accent||'#38bdf8');
+    badge.style.color=t.accent||'#38bdf8';
+    badge.style.borderRadius='999px';
+    badge.style.padding='4px 10px';
+    badge.style.fontSize='10px';
+    badge.style.fontWeight='800';
+    badge.style.marginBottom='14px';
+
+    const h=document.createElement('div');
+    h.textContent=t.name||'Custom Template';
+    h.style.fontSize='24px';
+    h.style.lineHeight='1.08';
+    h.style.fontWeight='900';
+    h.style.color='#f8fafc';
+
+    const sub=document.createElement('div');
+    sub.textContent='Base: '+(t.baseTemplate||'classic-docker');
+    sub.style.marginTop='10px';
+    sub.style.fontSize='12px';
+    sub.style.color='#cbd5e1';
+
+    inner.appendChild(badge);
+    inner.appendChild(h);
+    inner.appendChild(sub);
+    demo.appendChild(inner);
+    card.appendChild(demo);
+
+    const btn=document.createElement('button');
+    btn.textContent='Xem mẫu';
+    btn.style.marginTop='10px';
+    btn.onclick=()=>previewCustomLibraryTemplate(t);
+    card.appendChild(btn);
+
+    grid.appendChild(card);
+  });
+  requestAnimationFrame(syncCustomTemplateCardMetrics);
+}
+
+window.addEventListener('resize',()=>requestAnimationFrame(syncCustomTemplateCardMetrics)); /* alpha15.0.3e */
+function previewCustomLibraryTemplate(t){
+  const w=window.open('','_blank','width=420,height=780');
+  if(!w)return;
+
+  const accent=t.accent||'#38bdf8';
+  const bg=t.backgroundUrl
+    ? "background-image:linear-gradient(rgba(2,6,23,.48),rgba(2,6,23,.48)),url('"+t.backgroundUrl+"');background-size:"+(t.backgroundFit||'cover')+";background-position:center;"
+    : "background:#020617;";
+
+  const font=t.fontFamily||'Arial,sans-serif';
+
+  w.document.write(
+    '<!doctype html><html><head><meta charset="utf-8"><title>'+esc(t.name||'Custom Template')+'</title><style>'+
+    'html,body{margin:0;width:100%;height:100%;background:#000}'+
+    'body{display:flex;align-items:center;justify-content:center;font-family:'+font+'}'+
+    '.phone{width:360px;height:640px;'+bg+'position:relative;overflow:hidden;color:white}'+
+    '.shade{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(15,23,42,.1),rgba(2,6,23,.55))}'+
+    '.content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;text-align:center}'+
+    '.badge{border:1px solid '+accent+';color:'+accent+';border-radius:999px;padding:6px 14px;font-size:12px;font-weight:800;margin-bottom:24px}'+
+    '.panel{border:1px solid rgba(255,255,255,.14);background:rgba(2,6,23,.46);border-radius:22px;padding:24px}'+
+    'h1{font-size:32px;line-height:1.08;margin:0 0 12px;font-weight:900}'+
+    'p{font-size:17px;line-height:1.4;color:#e2e8f0;margin:0}'+
+    '</style></head><body><div class="phone"><div class="shade"></div><div class="content">'+
+    '<div class="badge">CUSTOM TEMPLATE</div><div class="panel"><h1>'+esc(t.name||'Custom Template')+
+    '</h1><p>Demo nhanh của template đã lưu.</p></div></div></div></body></html>'
+  );
+  w.document.close();
+}
+
+function renderCustomTemplates(){ctList.innerHTML='<h4>Template của tôi</h4>'+(customTemplates.length?customTemplates.map(t=>`<div class="job"><div class="titleline"><div><b>${esc(t.name||t.id)}</b><div class="muted">Layout: ${esc(t.baseTemplate||'classic-docker')} · Font: ${esc(t.fontFamily||'mặc định')}</div></div><div class="actions"><button class="secondary" onclick="editCustomTemplate('${esc(t.id)}')">Sửa</button><button class="danger" onclick="deleteCustomTemplate('${esc(t.id)}')">Xóa</button></div></div></div>`).join(''):'<div class="muted">Chưa có custom template.</div>')}
+function refreshCustomTemplateSelector(){if(!document.getElementById('videoTemplate'))return;[...videoTemplate.options].filter(o=>o.value.startsWith('custom:')).forEach(o=>o.remove());customTemplates.forEach(t=>{const o=document.createElement('option');o.value='custom:'+t.id;o.textContent='Custom · '+(t.name||t.id);videoTemplate.appendChild(o)})}
+function newCustomTemplate(){editingTemplateId='';ctName.value='';ctBase.value='classic-docker';ctFont.value='';ctBg.value='';ctBgFit.value='cover';ctAccent.value='#38bdf8';ctStatus.textContent='Tạo template mới.'}
+async function uploadCustomFont(){try{const f=ctFontFile.files[0];if(!f)return alert('Chọn file font trước.');ctStatus.textContent='Đang upload font...';const data=await fileToDataUrl(f);const r=await fetch(TEMPLATE_API+'/api/upload/font',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fileName:f.name,data})}),j=await r.json();if(!j.success)throw Error(j.error);await loadCustomTemplateBuilder();ctFont.value=j.name;ctStatus.innerHTML='<span class="ok">Đã upload font.</span>'}catch(e){ctStatus.innerHTML='<span class="error">Upload font lỗi: '+esc(e.message)+'</span>'}}
+async function uploadCustomBg(){try{const f=ctBgFile.files[0];if(!f)return alert('Chọn background trước.');ctStatus.textContent='Đang upload background...';const data=await fileToDataUrl(f);const r=await fetch(TEMPLATE_API+'/api/upload/background',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fileName:f.name,data})}),j=await r.json();if(!j.success)throw Error(j.error);await loadCustomTemplateBuilder();ctBg.value=j.url;ctStatus.innerHTML='<span class="ok">Đã upload background.</span>'}catch(e){ctStatus.innerHTML='<span class="error">Upload background lỗi: '+esc(e.message)+'</span>'}}
+function currentFontUrl(){const o=ctFont.options[ctFont.selectedIndex];return o?.dataset?.url||''}
+async function saveCustomTemplate(){try{const name=ctName.value.trim();if(!name)return alert('Nhập tên template.');const id=editingTemplateId||('tpl-'+Date.now());const obj={id,name,baseTemplate:ctBase.value,fontFamily:ctFont.value||'',fontUrl:currentFontUrl(),backgroundUrl:ctBg.value||'',backgroundFit:ctBgFit.value,accent:ctAccent.value};const r=await fetch(TEMPLATE_API+'/api/templates'+(editingTemplateId?'/'+encodeURIComponent(id):''),{method:editingTemplateId?'PUT':'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(obj)}),j=await r.json();if(!j.success)throw Error(j.error);editingTemplateId=id;await loadCustomTemplateBuilder();ctStatus.innerHTML='<span class="ok">Đã lưu template. Template đã xuất hiện trong AI Content.</span>'}catch(e){ctStatus.innerHTML='<span class="error">Lưu template lỗi: '+esc(e.message)+'</span>'}}
+function editCustomTemplate(id){const t=customTemplates.find(x=>x.id===id);if(!t)return;editingTemplateId=id;ctName.value=t.name||'';ctBase.value=t.baseTemplate||'classic-docker';ctFont.value=t.fontFamily||'';ctBg.value=t.backgroundUrl||'';ctBgFit.value=t.backgroundFit||'cover';ctAccent.value=t.accent||'#38bdf8';customTemplateBuilder.scrollIntoView({behavior:'smooth'})}
+async function deleteCustomTemplate(id){if(!confirm('Xóa custom template này?'))return;await fetch(TEMPLATE_API+'/api/templates/'+encodeURIComponent(id),{method:'DELETE'});await loadCustomTemplateBuilder()}
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));let compositions=[],aiState=null,voiceState=null,channelState=null;try{compositions=JSON.parse(localStorage.getItem('explainer-compositions')||'[]')}catch{}
+function showPage(name){for(const n of ['Render','Create','Providers','Pronunciation','Templates','Channel']){const page=document.getElementById('page'+n),nav=document.getElementById('nav'+n);if(page)page.classList.toggle('active',n.toLowerCase()===name);if(nav)nav.classList.toggle('active',n.toLowerCase()===name)}if(name==='providers'||name==='create')loadProviderStates();if(name==='channel')loadChannelSettings();if(name==='pronunciation')loadPron();if(name==='templates')loadCustomTemplateBuilder()}
+function showProviderTab(n){providerTabAI.classList.toggle('active',n==='ai');providerTabVoice.classList.toggle('active',n==='voice');tabAI.classList.toggle('active',n==='ai');tabVoice.classList.toggle('active',n==='voice')}
+function renderComps(data,note=''){compositions=data||[];if(compositions.length){localStorage.setItem('explainer-compositions',JSON.stringify(compositions));compMsg.textContent=`${compositions.length} composition(s) available`;compCache.textContent=note;comps.innerHTML=compositions.map(c=>`<div class="card"><h3>${esc(c.id)}</h3><div class="meta">Resolution: ${c.width} × ${c.height}<br>FPS: ${c.fps}<br>Frames: ${c.frames}<br>Duration: ${c.duration} seconds</div><br><button onclick="renderVideo('${esc(c.id)}')">Render Video</button></div>`).join('')}}if(compositions.length)renderComps(compositions,'Hiển thị cache cục bộ...');
+async function health(){try{const r=await fetch(API+'/api/health',{cache:'no-store'});if(!r.ok)throw 0;const d=await r.json();backend.textContent=`Backend Online • Queue ${d.queue}${d.activeJobId?' • Rendering':''}`;backend.className='status online'}catch{backend.textContent='Backend Offline';backend.className='status offline'}}
+async function loadComps(force=false){if(!compositions.length)compMsg.textContent='Loading compositions...';try{const r=await fetch(force?API+'/api/compositions/refresh':API+'/api/compositions',{method:force?'POST':'GET',cache:'no-store'}),d=await r.json();if(!d.success)throw Error(d.error);renderComps(d.compositions,(d.source||'').includes('cache')?'Composition cache đang được dùng.':'Composition vừa được đọc từ Remotion.')}catch(e){if(!compositions.length)compMsg.textContent='Unable to load compositions: '+e.message}}
+async function refreshComps(){await loadComps(true)}async function renderVideo(composition){try{const r=await fetch(API+'/api/render',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({composition})}),d=await r.json();if(!d.success)throw Error(d.error);await loadJobs();jobs.scrollIntoView({behavior:'smooth'})}catch(e){alert('Render failed: '+e.message)}}
+function fmt(t){return t?new Date(t).toLocaleString('vi-VN'):'-'}function size(n){return n?`${(n/1048576).toFixed(1)} MB`:'-'}function elapsed(j){if(!j.startedAt)return'-';const end=j.finishedAt?new Date(j.finishedAt):new Date(),sec=Math.max(0,Math.floor((end-new Date(j.startedAt))/1000));return`${Math.floor(sec/60)}m ${String(sec%60).padStart(2,'0')}s`}
+async function loadJobs(){
+ try{
+  const [r,mr]=await Promise.all([
+   fetch(API+'/api/jobs',{cache:'no-store'}),
+   fetch(API+'/api/a13b/projects',{cache:'no-store'}).catch(()=>null)
+  ]);
+  const d=await r.json();
+  let meta={};
+  if(mr&&mr.ok){try{meta=(await mr.json()).projects||{}}catch{}}
+  if(!d.jobs.length){jobs.textContent='Chua co job.';return}
+  window.a13bJobs={};
+  const visible=d.jobs.filter(j=>!(meta[j.id||'']||{}).deleted);
+  if(!visible.length){jobs.textContent='Chua co project hien thi.';return}
+  jobs.innerHTML=visible.map(j=>{
+   const id=String(j.id||'');
+   window.a13bJobs[id]=j;
+   const mm=meta[id]||{};
+   const projectName=mm.name||j.projectName||j.title||j.topic||j.comp||'Project';
+   const scriptFile=mm.scriptFile||j.scriptFile||'';
+   return `<div class="job" data-job-id="${esc(id)}" data-script-file="${esc(scriptFile)}">
+    <div class="titleline">
+      <div>
+        <div style="font-size:17px;font-weight:700;color:#f8fafc">${esc(projectName)}</div>
+        <div class="muted" style="margin-top:3px">${esc(j.comp||'ScriptExplainer')}</div>
+      </div>
+      <span class="status ${j.status}">${j.status.toUpperCase()}</span>
+    </div>
+    <div class="progress"><div class="bar" style="width:${j.progress||0}%"></div></div>
+    <div class="meta">Progress: ${j.progress||0}% - Frame ${j.currentFrame||0}/${j.totalFrames||0} - Elapsed: ${elapsed(j)}</div>
+    <div class="meta">Created: ${fmt(j.createdAt)} - Started: ${fmt(j.startedAt)} - Finished: ${fmt(j.finishedAt)}${j.size?` - ${size(j.size)}`:''}</div>
+    ${j.error?`<div class="error">${esc(j.error)}</div>`:''}
+    <div class="actions" style="margin-top:12px">
+      ${j.url?`<a class="btn" href="${API}${j.url}" target="_blank">Xem / tai video</a>`:''}
+      ${j.status==='failed'?`<button onclick="a144Retry(\'${esc(id)}\')">Thử lại</button>`:''}<button class="secondary" onclick="a13bEdit('${esc(id)}')">Edit</button>
+      <button class="secondary" onclick="a13bRename('${esc(id)}')">Doi ten</button>
+      <button class="danger" onclick="a13bDelete('${esc(id)}')">Xoa</button>
+    </div>
+   </div>`
+  }).join('')
+ }catch(e){jobs.textContent='Khong tai duoc jobs: '+e.message}
+}
+
+async function a13bMeta(){
+ try{const r=await fetch(API+'/api/a13b/projects',{cache:'no-store'});const d=await r.json();return d.projects||{}}catch{return {}}
+}
+async function a13bRename(id){
+ const m=await a13bMeta();
+ const old=(m[id]&&m[id].name)||'';
+ const name=prompt('Ten project moi:',old);
+ if(!name)return;
+ const r=await fetch(API+'/api/a13b/projects/'+encodeURIComponent(id)+'/rename',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name})});
+ const d=await r.json();
+ if(!r.ok||!d.success)return alert(d.error||'Rename failed');
+ await loadJobs();
+}
+async function a13bDelete(id){
+ if(!confirm('Xoa project nay va MP4/audio sinh ra?'))return;
+ const j=(window.a13bJobs||{})[id]||{};
+ const r=await fetch(API+'/api/a13b/projects/'+encodeURIComponent(id),{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:j.url||''})});
+ const d=await r.json();
+ if(!r.ok||!d.success)return alert(d.error||'Delete failed');
+ await loadJobs();
+}
+async function a13bEdit(id){
+ const m=await a13bMeta();
+ const j=(window.a13bJobs||{})[id]||{};
+ const scriptFile=(m[id]&&m[id].scriptFile)||j.scriptFile||'';
+ if(!scriptFile){alert('Project cu chua co lien ket script. Project render moi sau Alpha 13B se Edit duoc.');return}
+ const r=await fetch(API+'/api/a13b/scripts/'+encodeURIComponent(scriptFile),{cache:'no-store'});
+ const d=await r.json();
+ if(!r.ok||!d.success)return alert(d.error||'Cannot load script');
+ currentScript=d.script;
+ currentScriptFile=d.file||scriptFile;
+ showScript();
+ showPage('create');
+ scriptResult.scrollIntoView({behavior:'smooth'});
+}
+async function loadProviderStates(){try{const [ar,vr]=await Promise.all([fetch(API+'/api/ai/providers',{cache:'no-store'}),fetch(API+'/api/voice/providers',{cache:'no-store'})]);const a=await ar.json(),v=await vr.json();if(!a.success)throw Error(a.error);if(!v.success)throw Error(v.error);aiState=a;voiceState=v;renderAIProviders();renderVoiceProviders();populateCreate()}catch(e){console.error(e)}}
+function configuredAI(){if(!aiState)return[];return Object.keys(aiState.presets||{}).filter(id=>aiState.providers?.[id]?.connected&&aiState.providers[id].models?.length)}
+function configuredVoice(){if(!voiceState)return[];return Object.keys(voiceState.presets||{}).filter(id=>voiceState.presets[id].builtin||voiceState.providers?.[id]?.connected)}
+function populateCreate(){if(!aiState||!voiceState)return;const ids=configuredAI();aiMode.innerHTML=`<option value="default">Chế độ mặc định</option>`+ids.map(id=>`<option value="${id}">${esc(aiState.providers[id]?.name||aiState.presets[id].name)}</option>`).join('');onAiModeChange();const vids=configuredVoice();voiceProvider.innerHTML=vids.map(id=>`<option value="${id}">${esc(voiceState.providers[id]?.name||voiceState.presets[id].name)}</option>`).join('');loadVoiceOptions()}
+function onAiModeChange(){if(!aiState)return;const mode=aiMode.value;if(mode==='default'){aiModel.disabled=true;aiModel.innerHTML='<option value="">Tự động theo Chế độ mặc định</option>';return}aiModel.disabled=false;const opts=(aiState.providers[mode]?.models||[]).map(m=>({v:`${mode}::${m}`,t:m}));aiModel.innerHTML=opts.length?opts.map(o=>`<option value="${esc(o.v)}">${esc(o.t)}</option>`).join(''):'<option value="">Chưa có model - hãy Test Connection trong Providers</option>'}
+function loadVoiceOptions(){if(!voiceState)return;const id=voiceProvider.value,p=voiceState.providers?.[id],preset=voiceState.presets?.[id];let voices=p?.voices||[];if(id==='edge'&&!voices.length)voices=[{id:'vi-VN-NamMinhNeural',name:'Nam Minh'},{id:'vi-VN-HoaiMyNeural',name:'Hoài My'}];voiceModel.innerHTML=voices.length?voices.map(v=>`<option value="${esc(v.id)}">${esc(v.name||v.id)}${v.language?' · '+esc(v.language):''}</option>`).join(''):'<option value="">Chưa lấy được danh sách giọng</option>'}
+
+function renderAIProviders(){if(!aiState)return;aiProviderList.innerHTML=Object.entries(aiState.presets).map(([id,p])=>{const s=aiState.providers[id]||{},models=s.models||[];return`<div class="card provider-card"><div class="provider-head"><div><b>${esc(s.name||p.name)}</b> <span class="badge">${esc(s.kind||p.kind)}</span>${s.connected?` <span class="badge good">CONNECTED · ${models.length} models</span>`:''}</div><div class="actions"><button class="smallbtn" onclick="saveAI('${id}')">Lưu</button><button class="smallbtn" onclick="testAI('${id}')">Kiểm tra kết nối</button>${s.hasApiKey?`<button class="smallbtn danger" onclick="deleteAIKey('${id}')">Xóa API Key</button>`:''}</div></div><label>Base URL</label><input id="a-base-${id}" value="${esc(s.baseUrl||p.baseUrl||'')}">${id==='custom'?`<div class="grid2"><div><label>Provider Name</label><input id="a-name-${id}" value="${esc(s.name||'Custom AI')}"></div><div><label>API Type</label><select id="a-kind-${id}"><option value="openai-compatible">OpenAI-compatible</option><option value="anthropic">Anthropic</option><option value="gemini">Gemini native</option></select></div></div>`:''}<label>API Key ${s.hasApiKey?`<span class="muted">(đã lưu: ${esc(s.apiKeyMasked)})</span>`:''}</label><input id="a-key-${id}" type="password" placeholder="Để trống để giữ API Key hiện tại"><div id="a-result-${id}" class="provider-result">${s.connected?`<span class="ok">Kết nối thành công · ${models.length} models</span>`:''}</div>${models.length?`<div class="model-list">${models.map(x=>esc(x)).join('<br>')}</div>`:''}</div>`}).join('')}
+async function saveAI(id){const el=document.getElementById('a-result-'+id);try{const body={baseUrl:document.getElementById('a-base-'+id).value,apiKey:document.getElementById('a-key-'+id).value};if(id==='custom'){body.name=document.getElementById('a-name-'+id).value;body.kind=document.getElementById('a-kind-'+id).value}const r=await fetch(API+'/api/ai/providers/'+id,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}),d=await r.json();if(!d.success)throw Error(d.error);aiState=d;renderAIProviders();populateCreate();document.getElementById('a-result-'+id).innerHTML='<span class="ok">✓ Đã lưu cấu hình</span>';return true}catch(e){el.innerHTML=`<span class="error">Lưu thất bại: ${esc(e.message)}</span>`;return false}}
+async function testAI(id){if(!(await saveAI(id)))return;const el=document.getElementById('a-result-'+id);el.textContent='Đang kiểm tra kết nối và lấy danh sách model...';try{const r=await fetch(API+'/api/ai/providers/'+id+'/test',{method:'POST'}),d=await r.json();if(!d.success)throw Error(d.error);aiState=d;renderAIProviders();populateCreate();document.getElementById('a-result-'+id).innerHTML=`<span class="ok">✓ Kết nối thành công · tìm thấy ${d.result.count} model</span>`}catch(e){el.innerHTML=`<span class="error">✕ Kết nối thất bại: ${esc(e.message)}</span>`}}
+
+function renderVoiceProviders(){if(!voiceState)return;voiceProviderList.innerHTML=Object.entries(voiceState.presets).map(([id,p])=>{const s=voiceState.providers[id]||{},voices=s.voices||[],builtin=p.builtin;return`<div class="card provider-card"><div class="provider-head"><div><b>${esc(s.name||p.name)}</b> <span class="badge">${esc(s.kind||p.kind)}</span>${builtin?` <span class="badge good">BUILT-IN</span>`:s.connected?` <span class="badge good">CONNECTED · ${voices.length} voices</span>`:''}</div><div class="actions">${builtin?'':`<button class="smallbtn" onclick="saveVoice('${id}')">Lưu</button>`}<button class="smallbtn" onclick="testVoice('${id}')">Kiểm tra kết nối</button>${(!builtin&&s.hasApiKey)?`<button class="smallbtn danger" onclick="deleteVoiceKey('${id}')">Xóa API Key</button>`:''}</div></div>${builtin?'<div class="muted" style="margin-top:10px">Edge TTS có sẵn, không cần API Key.</div>':`<label>API URL</label><input id="v-base-${id}" value="${esc(s.baseUrl||p.baseUrl||'')}">${id==='custom_voice'?`<label>Provider Name</label><input id="v-name-${id}" value="${esc(s.name||'Custom Voice API')}">`:''}<label>API Key ${s.hasApiKey?`<span class="muted">(đã lưu: ${esc(s.apiKeyMasked)})</span>`:''}</label><input id="v-key-${id}" type="password" placeholder="Optional / để trống để giữ key hiện tại">${id==='custom_voice'?`<div class="grid2"><div><label>Voices Endpoint (optional)</label><input id="v-ve-${id}" value="${esc(s.voicesEndpoint||'')}" placeholder="Ví dụ /api/voices"></div><div><label>TTS Endpoint (optional)</label><input id="v-te-${id}" value="${esc(s.ttsEndpoint||'')}" placeholder="Ví dụ /api/tts"></div></div>`:''}`}<div id="v-result-${id}" class="provider-result">${s.connected?`<span class="ok">Kết nối thành công${voices.length?' · '+voices.length+' voices':''}</span>${s.lastWarning?`<br><span class="warn">${esc(s.lastWarning)}</span>`:''}`:''}</div>${voices.length?`<div class="model-list">${voices.map(v=>`${esc(v.name||v.id)} <span class="muted">${esc(v.id)}${v.type?' · '+esc(v.type):''}${v.gender?' · '+esc(v.gender):''}${v.style?' · '+esc(v.style):''}</span>`).join('<br>')}</div>`:''}</div>`}).join('')}
+async function saveVoice(id){const el=document.getElementById('v-result-'+id);try{const body={baseUrl:document.getElementById('v-base-'+id).value,apiKey:document.getElementById('v-key-'+id).value};if(id==='custom_voice')body.name=document.getElementById('v-name-'+id).value;if(id==='custom_voice'){body.voicesEndpoint=document.getElementById('v-ve-'+id).value;body.ttsEndpoint=document.getElementById('v-te-'+id).value}const r=await fetch(API+'/api/voice/providers/'+id,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}),d=await r.json();if(!d.success)throw Error(d.error);voiceState=d;renderVoiceProviders();populateCreate();document.getElementById('v-result-'+id).innerHTML='<span class="ok">✓ Đã lưu cấu hình</span>';return true}catch(e){el.innerHTML=`<span class="error">Lưu thất bại: ${esc(e.message)}</span>`;return false}}
+async function testVoice(id){if(id!=='edge'&&!(await saveVoice(id)))return;const el=document.getElementById('v-result-'+id);el.textContent='Đang kiểm tra kết nối và lấy danh sách giọng...';try{const r=await fetch(API+'/api/voice/providers/'+id+'/test',{method:'POST'}),d=await r.json();if(!d.success)throw Error(d.error);voiceState=d;renderVoiceProviders();populateCreate();document.getElementById('v-result-'+id).innerHTML=`<span class="ok">✓ Kết nối thành công${d.result.count?' · tìm thấy '+d.result.count+' giọng':''}</span>${d.result.detectedBaseUrl?`<br><span class="muted">API nhận diện: ${esc(d.result.detectedBaseUrl)}</span>`:''}${d.result.presetCount||d.result.customCount?`<br><span class="muted">Preset: ${d.result.presetCount||0} · Custom: ${d.result.customCount||0}</span>`:''}${d.result.warning?`<br><span class="warn">${esc(d.result.warning)}</span>`:''}`}catch(e){el.innerHTML=`<span class="error">✕ Kết nối thất bại: ${esc(e.message)}</span>`}}
+
+async function loadChannelSettings(){try{const r=await fetch(API+'/api/channel-settings',{cache:'no-store'}),d=await r.json();if(!d.success)throw Error(d.error);channelState=d.settings||{};chName.value=channelState.channelName||'';chWebsite.value=channelState.website||'';chYoutube.value=channelState.youtube||'';chFacebook.value=channelState.facebook||'';chTiktok.value=channelState.tiktok||'';chCta.value=channelState.cta||'';chIntroEnabled.checked=channelState.introEnabled!==false;chIntroTitle.value=channelState.introTitle||'';chIntroSubtitle.value=channelState.introSubtitle||'';chIntroVoice.value=channelState.introVoiceover||'';chOutroEnabled.checked=channelState.outroEnabled!==false;chOutroTitle.value=channelState.outroTitle||'';chOutroVoice.value=channelState.outroVoiceover||''}catch(e){channelStatus.innerHTML='<span class="error">Không tải được cài đặt: '+esc(e.message)+'</span>'}}
+async function saveChannelSettings(){const body={channelName:chName.value,website:chWebsite.value,youtube:chYoutube.value,facebook:chFacebook.value,tiktok:chTiktok.value,cta:chCta.value,introEnabled:chIntroEnabled.checked,introTitle:chIntroTitle.value,introSubtitle:chIntroSubtitle.value,introVoiceover:chIntroVoice.value,outroEnabled:chOutroEnabled.checked,outroTitle:chOutroTitle.value,outroVoiceover:chOutroVoice.value};try{const r=await fetch(API+'/api/channel-settings',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}),d=await r.json();if(!d.success)throw Error(d.error);channelState=d.settings;channelStatus.innerHTML='<span class="ok">✓ Đã lưu thông tin kênh</span>'}catch(e){channelStatus.innerHTML='<span class="error">Lưu thất bại: '+esc(e.message)+'</span>'}}
+let currentScript=null,currentScriptFile='';
+async function deleteAIKey(id){if(!confirm('Xóa API Key đã lưu của provider này?'))return;try{const r=await fetch(API+'/api/ai/providers/'+id+'/key',{method:'DELETE'});const text=await r.text();let d;try{d=JSON.parse(text)}catch{throw Error('Backend trả về dữ liệu không hợp lệ (HTTP '+r.status+')')}if(!r.ok||!d.success)throw Error(d.error||'Không xóa được API Key');aiState=d;renderAIProviders();populateCreate();alert('Đã xóa API Key')}catch(e){alert('Xóa API Key thất bại: '+e.message)}}
+async function deleteVoiceKey(id){if(!confirm('Xóa API Key đã lưu của Voice Provider này?'))return;try{const r=await fetch(API+'/api/voice/providers/'+id+'/key',{method:'DELETE'});const text=await r.text();let d;try{d=JSON.parse(text)}catch{throw Error('Backend trả về dữ liệu không hợp lệ (HTTP '+r.status+')')}if(!r.ok||!d.success)throw Error(d.error||'Không xóa được API Key');voiceState=d;renderVoiceProviders();populateCreate();alert('Đã xóa API Key')}catch(e){alert('Xóa API Key thất bại: '+e.message)}}
+async function generateScript(){const t=topic.value.trim();if(!t){alert('Nhập chủ đề trước.');return}let providerId='',model='';if(aiMode.value!=='default'){const sel=aiModel.value;if(!sel){generateStatus.innerHTML='<span class="error">Chưa có Model AI. Hãy cấu hình và Test Connection AI trước.</span>';return}[providerId,model]=sel.split('::')}generateBtn.disabled=true;generateStatus.textContent=aiMode.value==='default'?'Chế độ mặc định đang chọn model đã chạy thành công gần nhất...':'AI đang sinh nội dung...';try{const body={mode:aiMode.value==='default'?'default':'provider',providerId,model,topic:t,duration:duration.value,voiceProvider:voiceProvider.value,voiceId:voiceModel.value,template:videoTemplate.value};const r=await fetch(API+'/api/scripts/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const text=await r.text();let d;try{d=JSON.parse(text)}catch{throw Error('Backend trả về dữ liệu không hợp lệ (HTTP '+r.status+')')}if(!r.ok||!d.success)throw Error(d.error||'Không tạo được kịch bản');currentScript=d.script;currentScript.status='draft';currentScriptFile=d.file;showScript();generateStatus.innerHTML='<span class="ok">Tạo kịch bản thành công. Có thể sửa trực tiếp rồi Lưu / Chốt.</span>'}catch(e){generateStatus.innerHTML=`<span class="error">Tạo thất bại: ${esc(e.message)}</span>`}finally{generateBtn.disabled=false}}
+function showScript(){if(currentScript&&document.getElementById("videoTemplate")){currentScript.template=currentScript.template||videoTemplate.value||"classic-docker";videoTemplate.value=currentScript.template;}const s=currentScript;if(!s)return;scriptResult.style.display='block';scriptTitle.textContent=s.title||s.topic||'Kịch bản';scriptMeta.textContent=(s.status==='ready'?'READY TO RENDER':'DRAFT')+' • '+(s.ai?.providerName||s.ai?.provider||'-')+' • '+(s.ai?.model||'-')+' • '+(s.targetDuration||'-')+'s';scriptMeta.className='badge '+(s.status==='ready'?'ready':'draft');const voices=(s.scenes||[]).map((x,i)=>`<div class="voice-row"><div class="titleline"><b>Scene ${i+1} — ${esc(x.type)}</b><span class="muted">${String(x.voiceover||'').trim().split(/\s+/).filter(Boolean).length} từ</span></div><textarea data-voice-scene="${i}" style="min-height:82px">${esc(x.voiceover||'')}</textarea></div>`).join('');const details=(s.scenes||[]).map((x,i)=>`<div class="scene"><b>Scene ${i+1} — ${esc(x.type)}</b><div class="scene-edit"><label>Headline</label><input data-scene="${i}" data-field="headline" value="${esc(x.headline||'')}"><label>Body</label><textarea data-scene="${i}" data-field="body">${esc(x.body||'')}</textarea><label>Keywords</label><input data-scene="${i}" data-field="keywords" value="${esc((x.keywords||[]).join(', '))}"></div></div>`).join('');sceneList.innerHTML=`<div class="notice"><b>Intro:</b> ${s.channel?.introEnabled!==false?'Bật':'Tắt'} · <b>Outro:</b> ${s.channel?.outroEnabled!==false?'Bật':'Tắt'} · <b>Kênh:</b> ${esc(s.channel?.channelName||'Chưa đặt')}</div><div class="card" style="background:#111827"><h4>Quản lý lời thoại</h4><div class="muted">Chỉnh toàn bộ lời TTS tại đây.</div>${voices}</div>${details}`;sceneList.querySelectorAll('input,textarea').forEach(el=>el.addEventListener('input',()=>{syncEditor();currentScript.status='draft';scriptRenderBtn.disabled=true;scriptMeta.textContent='DRAFT • '+(s.ai?.providerName||s.ai?.provider||'-')+' • '+(s.ai?.model||'-');scriptMeta.className='badge draft'}));scriptRenderBtn.disabled=s.status!=='ready';scriptResult.scrollIntoView({behavior:'smooth'})}
+function syncEditor(){if(!currentScript)return;sceneList.querySelectorAll('[data-voice-scene]').forEach(el=>{currentScript.scenes[Number(el.dataset.voiceScene)].voiceover=el.value});sceneList.querySelectorAll('[data-scene]').forEach(el=>{const i=Number(el.dataset.scene),f=el.dataset.field;if(f==='keywords')currentScript.scenes[i][f]=el.value.split(',').map(x=>x.trim()).filter(Boolean);else currentScript.scenes[i][f]=el.value})}
+async function saveScript(finalize){if(currentScript&&document.getElementById("videoTemplate"))currentScript.template=videoTemplate.value||currentScript.template||"classic-docker";if(!currentScript||!currentScriptFile)return;const keepY=window.scrollY;syncEditor();const selectedProvider=voiceProvider.value||'';const selectedVoice=voiceModel.value||'';if(!selectedProvider||!selectedVoice){scriptActionStatus.innerHTML='<span class="error">Hay chon Voice Provider va Giong doc truoc khi luu.</span>';return;}currentScript.voice={provider:selectedProvider,voiceId:selectedVoice};currentScript.template=videoTemplate.value||"classic-docker";scriptActionStatus.textContent=finalize?'Đang lưu và chốt kịch bản...':'Đang lưu bản nháp...';try{const r=await fetch(API+'/api/scripts/'+encodeURIComponent(currentScriptFile),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({script:currentScript,finalize})}),d=await r.json();if(!d.success)throw Error(d.error);currentScript=d.script;currentScript.template=videoTemplate.value||currentScript.template||"classic-docker";showScript();requestAnimationFrame(()=>window.scrollTo(0,keepY));scriptActionStatus.innerHTML='<span class="ok">✓ '+esc(d.message)+'</span>'}catch(e){scriptActionStatus.innerHTML='<span class="error">Lưu thất bại: '+esc(e.message)+'</span>'}}
+async function regenerateScript(){if(!confirm('Tạo kịch bản khác sẽ thay nội dung đang hiển thị. Tiếp tục?'))return;scriptActionStatus.textContent='Đang tạo kịch bản khác...';await generateScript()}
+async function renderFinalScript(){if(currentScript&&document.getElementById("videoTemplate"))currentScript.template=videoTemplate.value||currentScript.template||"classic-docker";if(!currentScript||currentScript.status!=='ready'){scriptActionStatus.innerHTML='<span class="error">Hãy Lưu / Chốt kịch bản trước khi Render.</span>';return}if(!currentScriptFile){scriptActionStatus.innerHTML='<span class="error">Không xác định được file kịch bản.</span>';return}const selectedVoice={provider:voiceProvider.value||'',voiceId:voiceModel.value||''};if(!selectedVoice.provider||!selectedVoice.voiceId){scriptActionStatus.innerHTML='<span class="error">Hay chon Voice Provider va Giong doc truoc khi Render.</span>';return;}currentScript.voice=selectedVoice;currentScript.template=videoTemplate.value||currentScript.template||"classic-docker";const voiceSave=await fetch(API+'/api/scripts/'+encodeURIComponent(currentScriptFile),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({script:currentScript,finalize:true})});const voiceText=await voiceSave.text();let voiceData;try{voiceData=JSON.parse(voiceText)}catch{throw Error('Backend tra du lieu khong hop le khi luu Voice Provider (HTTP '+voiceSave.status+')')}if(!voiceSave.ok||!voiceData.success)throw Error(voiceData.error||'Khong luu duoc Voice Provider truoc khi Render');currentScript=voiceData.script||currentScript;scriptRenderBtn.disabled=true;scriptActionStatus.textContent='Đang tạo voice, đo thời lượng và đưa video vào hàng đợi render...';try{const r=await fetch(API+'/api/scripts/'+encodeURIComponent(currentScriptFile)+'/render',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({voice:selectedVoice})});const text=await r.text();let d;try{d=JSON.parse(text)}catch{throw Error('Backend trả về dữ liệu không hợp lệ (HTTP '+r.status+')')}if(!r.ok||!d.success)throw Error(d.error||'Không tạo được render job');
+const a13bJobId=String(d.job?.id||d.jobId||d.id||'');
+if(a13bJobId){
+ fetch(API+'/api/a13b/projects/'+encodeURIComponent(a13bJobId)+'/link',{
+  method:'POST',
+  headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({scriptFile:currentScriptFile,title:currentScript.title||currentScript.topic||'Project'})
+ }).catch(()=>{});
+}
+currentScript.voice=selectedVoice;scriptActionStatus.innerHTML='<span class="ok">✓ Đã tạo render job. Timeline tự khớp theo audio thật.</span>';showPage('render');await loadJobs();jobs.scrollIntoView({behavior:'smooth'})}catch(e){scriptActionStatus.innerHTML='<span class="error">Render thất bại: '+esc(e.message)+'</span>';scriptRenderBtn.disabled=false}}
+async function loadPron(){const r=await fetch(API+'/api/pronunciation',{cache:'no-store'}),d=await r.json();pronList.innerHTML=(d.items||[]).map(x=>`<div class="job"><div class="titleline"><div><b>${esc(x.term)}</b><div class="muted">${esc(x.pronunciation)}</div></div><div class="actions"><button class="secondary" onclick="editPron('${esc(x.term)}','${esc(x.pronunciation)}')">Sửa</button><button class="danger" onclick="delPron('${esc(x.term)}')">Xóa</button></div></div></div>`).join('')||'Chưa có từ.'}
+function clearPron(){pronTerm.value='';pronValue.value=''}
+function editPron(a,b){pronTerm.value=a;pronValue.value=b;pronTerm.focus()}
+async function savePron(){const term=pronTerm.value.trim(),pronunciation=pronValue.value.trim();if(!term||!pronunciation)return;await fetch(API+'/api/pronunciation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({term,pronunciation})});clearPron();await loadPron()}
+async function delPron(term){if(!confirm('Xóa '+term+'?'))return;await fetch(API+'/api/pronunciation/'+encodeURIComponent(term),{method:'DELETE'});await loadPron()}
+async function a144Retry(id){try{const m=await a13bMeta(),j=(window.a13bJobs||{})[id]||{},f=(m[id]&&m[id].scriptFile)||j.scriptFile||'';if(!f)throw Error('Project chưa có liên kết kịch bản');const sr=await fetch(API+'/api/a13b/scripts/'+encodeURIComponent(f)),sd=await sr.json();if(!sr.ok||!sd.success)throw Error(sd.error||'Không đọc được kịch bản');const r=await fetch(API+'/api/scripts/'+encodeURIComponent(f)+'/render',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({voice:sd.script.voice||{}})}),d=await r.json();if(!r.ok||!d.success)throw Error(d.error||'Không tạo được job');await loadJobs()}catch(e){alert('Thử lại thất bại: '+e.message)}}
+function previewTemplate(c){const m=document.getElementById("tplModal"),st=document.getElementById("tplStage");st.className="template-demo "+c;st.innerHTML=c==="terminal"?'<div class="tpl-badge">$ explain</div><div class="tpl-title">&gt; NAS là gì?</div><div class="tpl-text">root@tech:~# storage --explain<br>data: centralized<br>share: enabled<br>backup: ready</div>':'<div class="tpl-badge">MÓC CÂU</div><div class="tpl-icon">'+(c==="cyber"?"CYBER":"ROCKET")+'</div><div class="tpl-title">NAS là gì?</div><div class="tpl-text">Một thiết bị lưu trữ tập trung giúp nhiều máy cùng truy cập dữ liệu.</div>';m.style.display="flex"}function closeTpl(){document.getElementById("tplModal").style.display="none"}health();loadComps();loadJobs();loadProviderStates();loadChannelSettings();setInterval(()=>{health();loadJobs()},2500);
+loadCustomTemplateBuilder();</script></body></html>

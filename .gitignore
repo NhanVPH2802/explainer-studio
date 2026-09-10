@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# Runtime data
+logs/
+*.log
+
+# Render outputs
+output/
+outputs/
+public/generated/
+public/audio/*
+
+# Runtime jobs/cache
+data/render-props/
+data/scripts/*
+data/render-jobs.json
+data/compositions-cache.json
+
+# User uploaded custom assets
+public/custom-assets/fonts/*
+public/custom-assets/backgrounds/*
+
+# Backups / packages
+*.bak
+*.bak-*
+*.tar.gz
+*.zip
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Temporary
+tmp/
+temp/
+*.tmp

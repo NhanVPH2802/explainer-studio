@@ -1,0 +1,12 @@
+[Unit]
+Description=Explainer Studio Backend
+After=network.target
+[Service]
+Type=simple
+WorkingDirectory=/opt/explainer-studio
+ExecStart=/usr/bin/node /opt/explainer-studio/server/index.js
+Restart=always
+RestartSec=3
+Environment=NODE_ENV=production
+[Install]
+WantedBy=multi-user.target

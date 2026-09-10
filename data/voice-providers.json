@@ -1,0 +1,194 @@
+{
+  "providers": {
+    "vieneu": {
+      "name": "VieNeu-TTS",
+      "kind": "vieneu",
+      "baseUrl": "http://192.168.1.154:8000",
+      "apiKey": "",
+      "voicesEndpoint": "/api/voices",
+      "ttsEndpoint": "/api/tts",
+      "voices": [
+        {
+          "id": "Mai Anh",
+          "name": "Mai Anh",
+          "language": "",
+          "type": "preset",
+          "gender": "",
+          "region": "",
+          "style": "",
+          "description": "Nữ · Bắc · Phong cách tin tức",
+          "enabled": true
+        },
+        {
+          "id": "Minh Triết",
+          "name": "Minh Triết",
+          "language": "",
+          "type": "preset",
+          "gender": "",
+          "region": "",
+          "style": "",
+          "description": "Nam · Nam · Phong cách tin tức",
+          "enabled": true
+        },
+        {
+          "id": "Minh Đức",
+          "name": "Minh Đức",
+          "language": "",
+          "type": "preset",
+          "gender": "",
+          "region": "",
+          "style": "",
+          "description": "Nam · Bắc · Phong cách tin tức",
+          "enabled": true
+        },
+        {
+          "id": "Ngọc Linh",
+          "name": "Ngọc Linh",
+          "language": "",
+          "type": "preset",
+          "gender": "",
+          "region": "",
+          "style": "",
+          "description": "Nữ · Bắc · Phong cách kể chuyện",
+          "enabled": true
+        },
+        {
+          "id": "Ngọc Trân",
+          "name": "Ngọc Trân",
+          "language": "",
+          "type": "preset",
+          "gender": "",
+          "region": "",
+          "style": "",
+          "description": "Nữ · Trung · Phong cách tự nhiên",
+          "enabled": true
+        },
+        {
+          "id": "Phạm Tuyên",
+          "name": "Phạm Tuyên",
+          "language": "",
+          "type": "preset",
+          "gender": "",
+          "region": "",
+          "style": "",
+          "description": "Nam · Bắc · Phong cách tự nhiên",
+          "enabled": true
+        },
+        {
+          "id": "Quang Sơn",
+          "name": "Quang Sơn",
+          "language": "",
+          "type": "preset",
+          "gender": "",
+          "region": "",
+          "style": "",
+          "description": "Nam · Trung · Phong cách tự nhiên",
+          "enabled": true
+        },
+        {
+          "id": "Thanh Bình",
+          "name": "Thanh Bình",
+          "language": "",
+          "type": "preset",
+          "gender": "",
+          "region": "",
+          "style": "",
+          "description": "Nam · Bắc · Phong cách kể chuyện",
+          "enabled": true
+        },
+        {
+          "id": "Thái Sơn",
+          "name": "Thái Sơn",
+          "language": "",
+          "type": "preset",
+          "gender": "",
+          "region": "",
+          "style": "",
+          "description": "Nam · Nam · Phong cách kể chuyện",
+          "enabled": true
+        },
+        {
+          "id": "Thùy Dung",
+          "name": "Thùy Dung",
+          "language": "",
+          "type": "preset",
+          "gender": "",
+          "region": "",
+          "style": "",
+          "description": "Nữ · Nam · Phong cách tin tức",
+          "enabled": true
+        },
+        {
+          "id": "Thục Đoan",
+          "name": "Thục Đoan",
+          "language": "",
+          "type": "preset",
+          "gender": "",
+          "region": "",
+          "style": "",
+          "description": "Nữ · Nam · Phong cách kể chuyện",
+          "enabled": true
+        },
+        {
+          "id": "Trúc Ly",
+          "name": "Trúc Ly",
+          "language": "",
+          "type": "preset",
+          "gender": "",
+          "region": "",
+          "style": "",
+          "description": "Nữ · Bắc · Phong cách tự nhiên",
+          "enabled": true
+        },
+        {
+          "id": "Xuân Vĩnh",
+          "name": "Xuân Vĩnh",
+          "language": "",
+          "type": "preset",
+          "gender": "",
+          "region": "",
+          "style": "",
+          "description": "Nam · Nam · Phong cách tự nhiên",
+          "enabled": true
+        },
+        {
+          "id": "Đoan Trang",
+          "name": "Đoan Trang",
+          "language": "",
+          "type": "preset",
+          "gender": "",
+          "region": "",
+          "style": "",
+          "description": "Nữ · Bắc · Phong cách tự nhiên",
+          "enabled": true
+        },
+        {
+          "id": "anh-khoa",
+          "name": "Anh Khoa",
+          "language": "",
+          "type": "custom",
+          "gender": "Nam",
+          "region": "Nam",
+          "style": "Kể chuyện",
+          "description": "Giọng nam miền Nam: Mộc mạc, gần gũi và chân thật. Phù hợp cho vlog du lịch miền Tây, kể chuyện đời thường, clip giải trí.",
+          "enabled": true
+        },
+        {
+          "id": "tao-thao",
+          "name": "Tào Tháo",
+          "language": "",
+          "type": "custom",
+          "gender": "Nam",
+          "region": "Nam",
+          "style": "Tự nhiên",
+          "description": "Tào Tháo",
+          "enabled": true
+        }
+      ],
+      "connected": false,
+      "lastTest": null,
+      "lastWarning": "",
+      "updatedAt": "2026-09-03T18:03:56.329Z"
+    }
+  }
+}
